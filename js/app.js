@@ -8,35 +8,9 @@ GAME RULES:
 */
 
 var puntuacion, puntuacionRedonda, jugadorActivo;
+init();
 
-puntuacion = [0, 0];
-puntuacionRedonda = 0;
-jugadorActivo = 0;
-
-//document.querySelector('#current-' + jugadorActivo).textContent = dado;
-document.querySelector(".dice").style.display = "none";
-
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
-
-//######## funciones #############
-const siguienteJugador = () => {
-  //siguiente jugador
-  jugadorActivo === 0 ? (jugadorActivo = 1) : (jugadorActivo = 0);
-  puntuacionRedonda = 0;
-
-  document.getElementById("current-0").textContent = "0";
-  document.getElementById("current-1").textContent = "0";
-
-  document.querySelector(".player-0-panel").classList.toggle("active");
-  document.querySelector(".player-1-panel").classList.toggle("active");
-
-  document.querySelector(".dice").style.display = "none";
-};
-
-//##### cuando dan click en Sostener ########
+//##### cuando dan click en tirar dado ########
 document.querySelector(".btn-roll").addEventListener("click", function() {
   //generar numero aleatorio
   var dado = Math.floor(Math.random() * 6) + 1;
@@ -58,6 +32,7 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
   }
 });
 
+//######### cuando da click en sostener ##########
 document.querySelector(".btn-hold").addEventListener("click", function() {
   //agregar puntaje actual al puntaje global
   puntuacion[jugadorActivo] += puntuacionRedonda;
@@ -81,3 +56,45 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
     siguienteJugador();
   }
 });
+
+//###### cuando le da click en nuevo juego ###########
+document.querySelector(".btn-new").addEventListener("click", init);
+
+//######## funciones #############
+function siguienteJugador() {
+  //siguiente jugador
+  jugadorActivo === 0 ? (jugadorActivo = 1) : (jugadorActivo = 0);
+  puntuacionRedonda = 0;
+
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+
+  document.querySelector(".dice").style.display = "none";
+}
+
+function init() {
+  puntuacion = [0, 0];
+  puntuacionRedonda = 0;
+  jugadorActivo = 0;
+
+  document.querySelector(".dice").style.display = "none";
+
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+
+  //cambiar de GANADOR a nombre de jugador
+  document.getElementById("name-0").textContent = "Player 1";
+  document.getElementById("name-1").textContent = "Player 2";
+
+  //limpiar clase ganadora
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+  document.querySelector(".player-0-panel").classList.add("active");
+}
