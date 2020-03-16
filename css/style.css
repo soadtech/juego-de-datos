@@ -171,3 +171,11 @@ i {
   font-weight: 300;
   color: #eb4d4d;
 }
+
+/** modal **/
+.modal-title {
+  margin: auto;
+}
+.modal-footer {
+  height: 60px;
+}

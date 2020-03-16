@@ -7,7 +7,12 @@ GAME RULES:
 - El primer jugador en alcanzar 100 puntos en el puntaje GLOBAL gana el juego
 */
 
-var puntuacion, puntuacionRedonda, jugadorActivo, gamePlaying, guardarDado;
+var puntuacion,
+  puntuacionRedonda,
+  jugadorActivo,
+  gamePlaying,
+  guardarDado,
+  valorParaGanar;
 init();
 
 //##### cuando dan click en tirar dado ########
@@ -64,7 +69,7 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
       puntuacion[jugadorActivo];
 
     //comprobar si el jugador gano
-    if (puntuacion[jugadorActivo] >= 100) {
+    if (puntuacion[jugadorActivo] >= parseInt(valorParaGanar)) {
       document.querySelector("#name-" + jugadorActivo).textContent =
         "Ganador !";
       document.querySelector(".dice").style.display = "none";
@@ -103,6 +108,7 @@ function siguienteJugador() {
 }
 
 function init() {
+  valorParaGanar = prompt("digite cantidad para ganar");
   puntuacion = [0, 0];
   puntuacionRedonda = 0;
   jugadorActivo = 0;
@@ -128,9 +134,9 @@ function init() {
 }
 
 /** CAMBIAR LAS REGLAS DEL JUEGO
-  1. Un jugador pierde su puntaje COMPLETO cuando tira dos 6 seguidos. Después de eso, es el turno del próximo jugador. (Sugerencia: siempre guarde la tirada de dados anterior en una variable separada)
+  1. Un jugador pierde su puntaje COMPLETO cuando tira dos 6 seguidos. Después de eso, es el turno del próximo jugador. (Sugerencia: siempre guarde la tirada de dados anterior en una variable separada) LISTO
  
- 2. Agregue un campo de entrada al HTML donde los jugadores pueden establecer el puntaje ganador, para que puedan cambiar el puntaje predefinido de 100. (Sugerencia: puede leer ese valor con la propiedad .value en JavaScript. Esta es una buena oportunidad para usa google para resolver esto)
+ 2. Agregue un campo de entrada al HTML donde los jugadores pueden establecer el puntaje ganador, para que puedan cambiar el puntaje predefinido de 100. (Sugerencia: puede leer ese valor con la propiedad .value en JavaScript. Esta es una buena oportunidad para usa google para resolver esto) LISTO
 
  3. Agregue otros dados al juego, para que haya dos dados ahora. El jugador pierde su puntaje actual cuando uno de ellos es un 1 (Sugerencia: necesitará CSS para colocar el segundo dado, así que eche un vistazo al código CSS para el primero)
  */
