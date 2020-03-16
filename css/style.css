@@ -55,7 +55,7 @@ body {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-weight: 100;
+  font-weight: 300;
   margin-top: 20px;
   margin-bottom: 10px;
   position: relative;
@@ -67,13 +67,14 @@ body {
   font-weight: 100;
   color: #eb4d4d;
   margin-bottom: 130px;
+  font-weight: bold;
 }
 
 .active {
   background-color: #f7f7f7;
 }
 .active .player-name {
-  font-weight: 300;
+  font-weight: 700;
 }
 
 .active .player-name::after {
@@ -98,7 +99,8 @@ body {
   text-transform: uppercase;
   margin-bottom: 10px;
   font-size: 12px;
-  color: #222;
+  color: #fff;
+  font-weight: bold;
 }
 
 .player-current-score {

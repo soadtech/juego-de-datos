@@ -3,11 +3,11 @@ GAME RULES:
 - El juego tiene 2 jugadores, jugando en rondas.
 - En cada turno, un jugador tira un dado tantas veces como lo desee. Cada resultado se agrega a su puntaje REDONDO
 - PERO, si el jugador saca un 1, toda su puntuación REDONDA se pierde. Después de eso, es el turno del siguiente jugador
-- El jugador puede elegir 'Hold', lo que significa que su puntaje REDONDO se agrega a su puntaje GLBAL. Después de eso, es el turno del siguiente jugador
+- El jugador puede elegir 'Sostener', lo que significa que su puntaje REDONDO se agrega a su puntaje GLBAL. Después de eso, es el turno del siguiente jugador
 - El primer jugador en alcanzar 100 puntos en el puntaje GLOBAL gana el juego
 */
 
-var puntuacion, puntuacionRedonda, jugadorActivo, gamePlaying;
+var puntuacion, puntuacionRedonda, jugadorActivo, gamePlaying, guardarDado;
 init();
 
 //##### cuando dan click en tirar dado ########
@@ -15,6 +15,7 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
   if (gamePlaying) {
     //generar numero aleatorio
     var dado = Math.floor(Math.random() * 6) + 1;
+    console.log(dado);
 
     //mostrando el resultado
     var dadoDOM = document.querySelector(".dice");
@@ -23,11 +24,29 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
 
     //actualizando el score si el numero no es 1
     if (dado !== 1) {
-      //anadir score
-      puntuacionRedonda += dado;
-      document.querySelector(
-        "#current-" + jugadorActivo
-      ).textContent = puntuacionRedonda;
+      //verificando si saco 2 veces seguidas el dado 6
+      if (dado === 6) {
+        guardarDado += dado;
+      } else {
+        guardarDado = 0;
+      }
+
+      //cambiando el resultado a cero
+      if (guardarDado === 12) {
+        puntuacion[jugadorActivo] = 0;
+
+        //actualizar la interfaz de usuario
+        document.querySelector("#score-" + jugadorActivo).textContent =
+          puntuacion[jugadorActivo];
+
+        siguienteJugador();
+      } else {
+        //anadir score
+        puntuacionRedonda += dado;
+        document.querySelector(
+          "#current-" + jugadorActivo
+        ).textContent = puntuacionRedonda;
+      }
     } else {
       siguienteJugador();
     }
@@ -109,7 +128,7 @@ function init() {
 }
 
 /** CAMBIAR LAS REGLAS DEL JUEGO
-  1. Un jugador pierde su puntaje COMPLETO cuando tira dos 6     seguidos. Después de eso, es el turno del próximo jugador. (Sugerencia: siempre guarde la tirada de dados anterior en una variable separada)
+  1. Un jugador pierde su puntaje COMPLETO cuando tira dos 6 seguidos. Después de eso, es el turno del próximo jugador. (Sugerencia: siempre guarde la tirada de dados anterior en una variable separada)
  
  2. Agregue un campo de entrada al HTML donde los jugadores pueden establecer el puntaje ganador, para que puedan cambiar el puntaje predefinido de 100. (Sugerencia: puede leer ese valor con la propiedad .value en JavaScript. Esta es una buena oportunidad para usa google para resolver esto)
 
